@@ -11,9 +11,9 @@ public class Cajero {
             menu.menuPrincipal();
         } else {
             intentos++;
-            if(intentos<=3){
+            if(intentos<3){
                 menu.pinIncorrecto();
-            }else if(intentos>3){
+            }else if(intentos>=3){
                 intentos = 0;
                 System.out.println("Cantidad de intentos sobrepasada, vuelva a intentar en 10 segundos");
                 try {
@@ -40,5 +40,8 @@ public class Cajero {
         }
         System.out.println("Tu saldo actual es: " + saldo);
     }
+     public void consultarSaldo(){
+        System.out.println("El saldo actual es: " + saldo);
+     }
 
 }
