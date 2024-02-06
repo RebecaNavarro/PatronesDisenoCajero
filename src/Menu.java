@@ -11,7 +11,7 @@ public class Menu {
         System.out.println("_ _ _ _");
         System.out.println("===============");
         int pin = sc.nextInt();
-        cajero.verificarPin(pin);
+        cajero.verificarPin(pin, this);
         System.out.println();
     }
 
@@ -22,7 +22,7 @@ public class Menu {
         System.out.println("_ _ _ _");
         System.out.println("===============");
         int pin = sc.nextInt();
-        cajero.verificarPin(pin);
+        cajero.verificarPin(pin, this);
         System.out.println();
     }
 
