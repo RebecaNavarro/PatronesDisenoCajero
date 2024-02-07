@@ -2,6 +2,12 @@ import java.util.Scanner;
 
 public class Menu {
 
+    int pin;
+    int cantidadDeposito;
+    int cantidadRetiro;
+    boolean pinEsNumero = false;
+    boolean cantidadEsNumeroDep = false;
+    boolean cantidadEsNumeroRet = false;
     Cajero cajero = new Cajero();
     Scanner sc = new Scanner(System.in);
     public void iniciarMenu(){
@@ -10,9 +16,17 @@ public class Menu {
         System.out.println("Ingrese su pin");
         System.out.println("_ _ _ _");
         System.out.println("===============");
-        int pin = sc.nextInt();
-        cajero.verificarPin(pin, this);
-        System.out.println();
+        while (!pinEsNumero) { //recorre digito por digito
+            if (sc.hasNextInt()) {//ve que lo que le sigue es un entero
+                pin = sc.nextInt();
+                pinEsNumero = true;
+                cajero.verificarPin(pin, this);
+            } else {
+                System.out.println("Error: Solo se permiten números. Por favor, inténtalo de nuevo.");
+                sc.next(); // Limpiar el buffer del scanner
+            }
+        }
+
     }
 
     public void pinIncorrecto(){
@@ -27,15 +41,15 @@ public class Menu {
     }
 
     public void menuPrincipal(){
-        System.out.println("=============");
+        System.out.println("===============");
         System.out.println("Bienvenido al cajero automático");
-        System.out.println("=============");
+        System.out.println("===============");
         System.out.println("Ingrese la opción que desee ejecutar: ");
         System.out.println("1. Saldo");
         System.out.println("2. Depósito");
         System.out.println("3. Retiro");
         System.out.println("4. Salir");
-        System.out.println("=============");
+        System.out.println("===============");
         int opcion;
         do {
             opcion = sc.nextInt();
@@ -46,9 +60,18 @@ public class Menu {
                 }
                 case 2: {
                     System.out.println("Ingresa el monto que deseas depositar");
-                    int cantidad = sc.nextInt();
-                    cajero.deposito(cantidad);
-                    menuPrincipal();
+                    while (!cantidadEsNumeroDep) {
+                        if (sc.hasNextInt()) {
+                            cantidadDeposito = sc.nextInt();
+                            cantidadEsNumeroDep = true;
+                            cajero.deposito(cantidadDeposito);
+                            menuPrincipal();
+                        } else {
+                            System.out.println("Error: Solo se permiten números. Por favor, inténtalo de nuevo.");
+                            sc.next(); // Limpiar el buffer del scanner
+                        }
+                    }
+
                 }
                 case 3: {
                     menuRetiros();
@@ -65,7 +88,7 @@ public class Menu {
     }
 
     public void menuRetiros(){
-        System.out.println("=============");
+        System.out.println("===============");
         System.out.println("Ingrese la opción que desee ejecutar: ");
         System.out.println("1. 20Bs.");
         System.out.println("2. 50Bs.");
@@ -73,7 +96,7 @@ public class Menu {
         System.out.println("4. 200Bs.");
         System.out.println("5. Seleccionar otro monto");
         System.out.println("6. Cancelar");
-        System.out.println("=============");
+        System.out.println("===============");
 
         int opcion = sc.nextInt();
         switch (opcion){
@@ -95,9 +118,20 @@ public class Menu {
             }
             case 5:{
                 System.out.println("Ingresa el monto que deseas retirar:");
-                int cantidad = sc.nextInt();
-                cajero.retiro(cantidad);
-                menuPrincipal();
+                // Bucle hasta que se introduzca un número válido
+                while (!cantidadEsNumeroRet) {
+                    if (sc.hasNextInt()) {
+                        cantidadRetiro = sc.nextInt();
+                        cantidadEsNumeroRet = true;
+                        cajero.retiro(cantidadRetiro);
+                        menuPrincipal();
+                    } else {
+                        System.out.println("Error: Solo se permiten números. Por favor, inténtalo de nuevo.");
+                        sc.next(); // Limpiar el buffer del scanner
+                    }
+                }
+
+
             }
             case 6:{
                 menuPrincipal();
