@@ -8,7 +8,8 @@ public class Menu {
     boolean pinEsNumero = false;
     boolean cantidadEsNumeroDep = false;
     boolean cantidadEsNumeroRet = false;
-    Cajero cajero = new Cajero();
+    Cliente cliente = new Cliente();
+    Cajero cajero = new Cajero(cliente);
     Scanner sc = new Scanner(System.in);
     public void iniciarMenu(){
         System.out.println("===============");
@@ -20,7 +21,7 @@ public class Menu {
             if (sc.hasNextInt()) {//ve que lo que le sigue es un entero
                 pin = sc.nextInt();
                 pinEsNumero = true;
-                cajero.verificarPin(pin, this);
+                cliente.verificarPin(pin, this, cajero);
             } else {
                 System.out.println("Error: Solo se permiten números. Por favor, inténtalo de nuevo.");
                 sc.next(); // Limpiar el buffer del scanner
@@ -36,7 +37,7 @@ public class Menu {
         System.out.println("_ _ _ _");
         System.out.println("===============");
         int pin = sc.nextInt();
-        cajero.verificarPin(pin, this);
+        cliente.verificarPin(pin, this, cajero);
         System.out.println();
     }
 
